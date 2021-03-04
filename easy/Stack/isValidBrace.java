@@ -10,20 +10,24 @@ import java.util.Stack;
  **/
 
 public class isValidBrace {
-    private static boolean isValid(String s){
+    private static boolean isValid(String s) {
         //若字符串长度为奇数，则不符合规则，直接返回false
         if (s.length() % 2 != 0) return false;
 
         Stack<Character> stk = new Stack<>();
-        for (int i=0;i<s.length();i++){
-            char c = s.charAt(i) ;  //取出字符
-            if (c == '('){  //若为左括号，则入栈
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(' || c == '[' || c == '{') {
                 stk.push(c);
-            }else if (c==')'){  //若为右括号，则尝试出栈
-                if (stk.empty()){   //若已经为空，则出栈失败，直接返回false
+            } else {
+                if (stk.empty()) {
                     return false;
                 }
-                stk.pop();
+                if ((c == ')' && stk.peek() == '(') || (c == ']' && stk.peek() == '[') || (c == '}' && stk.peek() == '{')) {
+                    stk.pop();
+                } else {
+                    return false;
+                }
             }
         }
         return stk.empty();
@@ -35,9 +39,9 @@ public class isValidBrace {
         String testString2 = "([[]]{})";
         String testString3 = "{}[()]";
 
-        System.out.println(testString+":" + isValid(testString));
-        System.out.println(testString+":" + isValid(testString1));
-        System.out.println(testString+":" + isValid(testString2));
-        System.out.println(testString+":" + isValid(testString3));
+        System.out.println(testString + ":" + isValid(testString));
+        System.out.println(testString + ":" + isValid(testString1));
+        System.out.println(testString + ":" + isValid(testString2));
+        System.out.println(testString + ":" + isValid(testString3));
     }
 }
