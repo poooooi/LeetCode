@@ -26,16 +26,20 @@ public class eatFish {
 
         Stack<Integer> stk = new Stack<>();
         for(int i=0;i<fishNum;i++){
+//            boolean hasEat = false;
             int curFishDirection = fishDirection[i];
             int curFishSize = fishSize[i];
             // 如果栈中还有鱼，并且栈中鱼向右，当前的鱼向左游，那么就会有相遇的可能性
             if(!stk.empty() && fishDirection[stk.peek()] == right && curFishDirection == left){
                 if(curFishSize > fishSize[stk.peek()]){
                     stk.pop();
+                    continue;
+//                    hasEat = true;
                 }
-            }else {
-                stk.push(i);
             }
+//            if(!hasEat){
+                stk.push(i);
+//            }
         }
         return stk.size();
     }
